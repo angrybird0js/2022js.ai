@@ -4,11 +4,23 @@
     <head>
         <title>홈페이지의 인덱스</title>
         <link rel="stylesheet" href="./style.css" type="text/css">
-        <script src="./navigator.js"></script>
+        <script></script>
     </head>
 <body>
+    <script src="./navigator.js"></script>
+    
+    <!-- <div id="hdr-idx" style="top:0; height: 30px; position:relative; "></div> -->
+    <!-- [간격을 준 후에 확인하고 div 배경색을 없애면 공간이 조성된다.] -->
+    <!-- 본문내 div 의 top을 30px 이상으로 주면 해결됨. -->
 
-<div id="header-idx" ></div>
+    <div id="hddr-index" style="position:relative; top:30px; background-color: red;"> 
+    <p>
+        div를 입력하지 않고 javascript 만으로 인덱스의 필수 내용을 표시. css 또한 대체 가능.
+        이 문단을 둘러싼 div 태그는 자바스크립트로 구현한 div가 없다고 간주하여 최상단에 위치함.
+        따라서 이 인덱스를 이용하려 한다면 여유공간을 주는 div 태그를 주고 활용하는 것이 좋으며 
+        스크립트 내의 주석을 변경하여 내부에 div를 만들어 인덱스를 표시하는 방법을 사용해야 한다.  
+    </p>
+     </div>
 
 
 </body>

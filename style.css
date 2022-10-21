@@ -1,4 +1,7 @@
 #header-idx {
+    position: relative;
+    top: 0px;
+    left: 0px;
     background-color: lightgray;
     opacity: 0.7;
     border-bottom-right-radius: 10px;
@@ -6,4 +9,12 @@
     width: 500px;
     height: 30px;
 
+}
+
+#hdr-idx {
+    top:0px; 
+    left: 0px;;
+    height: 30px; 
+    position: relative;
+    background-color: yellow;
 }

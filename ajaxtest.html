@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            function loadDoc() {
+                var xhttp = new XMLHttpRequest();
+                if(!xhttp) {
+                    alert('XMLHTTP 인스턴스를 만들 수가 없어요 ㅠㅠ');
+                    return false;
+                    }
+
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("demo").innerHTML = this.responseText;
+                    }
+                };
+                
+                xhttp.open("GET", "./ajax_info.txt", true);
+                xhttp.send();
+}
+        </script>
+    </head>
+<body>
+
+<div id="demo">
+ <!-- <div> -->
+    <h2>Let AJAX change this text</h2>
+  <button type="button" onclick="loadDoc();">Change Content</button>
+  <!-- <span id="demo"></span> -->
+</div>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<html>
+<script>
+
+(window.onload = function() {
+        roll_dice();
+
+
+    })();
+
+
+// function dice() { return Math.floor((Math.random() * 10) + 1);};
+
+function roll_dice(){
+    
+    //document.write(parseInt( Math.random() * (10 - 1) ) + 1);
+
+
+    for (var i = 0 ; i <= 10 ; i++) { // i 초기값에 0을 넣지 않았다
+
+        var rolldice = parseInt((Math.random() * 10) + 1);
+        document.write(rolldice);
+    }
+
+};
+
+</script>
+<body>
+    
+</body>
+</html>

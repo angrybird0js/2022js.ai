@@ -1,0 +1,70 @@
+<html>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', () => { //오타 발생
+            const money_kind = [50000, 10000, 5000, 1000, 500, 100, 50, 10];
+            const input = document.querySelector('input');
+            const button = document.querySelector('button');
+            const p = document.querySelector('p');
+            p.textContent = '';
+        
+            button.addEventListener('click' , () => {
+
+                let dividend = Number(input.value);
+                let rst = 0;
+
+                for(var i=0; i<=money_kind.length-1; i++) { //length 대신 [i]를 넣지말것
+                    
+                    if(i===0) {
+                        let bucks =  divider(dividend, money_kind[i]);
+                    
+                        rst = reminder(dividend, money_kind[i]);
+        
+                        prt_rprt(money_kind[i], bucks, rst);
+                    //계산에 나머지 재투입이 추가되어야 한다.
+                    // 객채를 잃어버리게 되어 오류가 발생.
+                    }else{
+                        let bucks =  divider(rst, money_kind[i]);
+                    
+                        rst = reminder(rst, money_kind[i]);
+        
+                        prt_rprt(money_kind[i], bucks, rst);
+                    }
+
+
+                    
+
+                }
+
+            })
+        
+            function divider(val , dvdr) {
+                return parseInt( val / dvdr );
+            }; 
+
+            function reminder(val , dvdr) {
+                return parseInt( val % dvdr);
+            };
+
+            prt_rprt(dvdr, dvr, rstt) {
+                for (var j=0; j<=money_kind.length-1;j++) {
+                    //childNode 조성
+                    const lst = document.createElement('p');
+                    lst.textContent = `${dvdr[j]}원권 ${dvr}장 나머지 ${rstt}`;
+                    //lst.setAttribute('id' , "header-idx");
+                    document.body.appendChild(lst);
+                
+                }
+            };
+
+        })
+        
+        </script>
+        <body>
+            
+            <input type="text" id="money">Number</input>
+            <button>계산</button>
+            <p></p>
+        </body>
+</html>

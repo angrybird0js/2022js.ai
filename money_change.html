@@ -47,15 +47,15 @@
                 return parseInt( val % dvdr);
             };
 
-            prt_rprt(dvdr, dvr, rstt) {
-                for (var j=0; j<=money_kind.length-1;j++) {
+            function prt_rprt(dvdr, dvr, rstt) {
+                
                     //childNode 조성
                     const lst = document.createElement('p');
-                    lst.textContent = `${dvdr[j]}원권 ${dvr}장 나머지 ${rstt}`;
+                    lst.textContent = `${dvdr} ${dvr}장 나머지 ${rstt}`;
                     //lst.setAttribute('id' , "header-idx");
                     document.body.appendChild(lst);
                 
-                }
+                
             };
 
         })

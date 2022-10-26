@@ -1,30 +1,118 @@
 <html>
 <script>
 
-(window.onload = function() {
-        roll_dice();
+// (window.onload = function() {
+//         roll_dice();
 
 
-    })();
+//     })();
 
 
 // function dice() { return Math.floor((Math.random() * 10) + 1);};
 
-function roll_dice(){
+document.addEventListener('DOMContentLoaded', () => {
+
+    let att = document.getElementById('att'));
+    let def = document.getElementById('def');
+    let att_num_dice = 3;
+    let def_num_dice = 2; 
+
+    let att_trp = att.value;
+    let def_trp = def.value;
+
+    // att_trp 0 || def_trp 0 -> finished
+
+    do {
+
+        var att_roll_rslt = ;
+        var def_roll_rslt = ;
+
+
+    } while(att_trp = 0 || def_trp = 0)
+
+
+    // att_trp <= 2 def_trp <=1
+    if()
+
+};
+
+function prt_rec() {
     
-    //document.write(parseInt( Math.random() * (10 - 1) ) + 1);
+};
 
 
-    for (var i = 0 ; i <= 10 ; i++) { // i 초기값에 0을 넣지 않았다
 
-        var rolldice = parseInt((Math.random() * 10) + 1);
-        document.write(rolldice);
+function prt_rslt() {};
+
+
+function compare_dice() {
+
+    if(att_trp < 3) att_num_dice = att_trp;
+    var att_rollset = collect_dice(att_num_dice);
+    att_rollset.sort(function(a, b)  {
+    if(a > b) return 1;
+    if(a === b) return 0;
+    if(a < b) return -1;
+    });
+    
+    if(def_trp < 2) def_num_dice = def_trp;
+    car def rollset = collect_dice(def_num_dice);
+    def_rollset.sort(function(a, b)  {
+    if(a > b) return 1;
+    if(a === b) return 0;
+    if(a < b) return -1;
+    });
+
+
+    //  주사위 2개이상
+    // if (att_rollset[0] > def_rollset[0]) {
+    //     def_trp -= 1;
+    // }else{
+    //     att_trp -+ 1;
+    // }
+
+}; 
+
+
+
+function collect_dice(dnum) {
+    var dice_num = dnum;
+    var dice_rec = [];
+
+    for(var i=0; i = dice_num ; i++) {
+        dice_rec[i] = roll_dice();
     }
 
+
+    return dice_rec;
+};
+
+function roll_dice(){
+        
+        
+    //document.write(parseInt( Math.random() * (10 - 1) ) + 1);
+        var rolldice = parseInt((Math.random() * 6) + 1);
+
+
+        return rolldice; 
 };
 
 </script>
 <body>
-    
+    <h1>Risk 주사위에 대한 설명</h1>
+    <p width="800px">공격측은 3개의 주사위, 방어측은 2개의 주사위를 던지며 
+        공격측과 방어측의 가장 높은 숫자의 주사위 2개를 
+        각기 1등과 2등끼리 비교하여 
+        공격측이 더 높다면 공격측의 승리, 
+        숫자가 같거나 수비측이 더 높다면 수비측의 승리로 결정된다. 
+        비교되는 숫자 1회당 군대(troop) 하나에 해당하며 
+        군대가 1개 남아있다면 한개의 주사위를 던져야 한다.</p>
+
+    <p>공격측과 수비측의 병력수를 입력하라.</p>
+    <input id ="att" type="text">공격측</input><br/>
+    <input id ="def" type="text">수비측</input><br/>
+    <button>주사위를 굴린다</button><br/>
+
+    <p>이하 전투의 과정과 결과</p>
 </body>
 </html>

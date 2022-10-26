@@ -9,6 +9,10 @@
     width: 500px;
     height: 30px;
 
+    display: flex;
+    justify-content: space-between ;
+    
+
 }
 
 #hdr-idx {
@@ -18,3 +22,5 @@
     position: relative;
     background-color: yellow;
 }
+
+

@@ -10,82 +10,182 @@
 
 // function dice() { return Math.floor((Math.random() * 10) + 1);};
 
+
+//att def side를 꼬리변수로 만들어 1:1 이상의 개량의 여지를 준다.
+// 테스트 함수 작성하여 값 확인
+// console.assert
+
+// 전투 종료시 후퇴 기능 추가
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
 
-    let att = document.getElementById('att'));
+    const btn_bttl = document.querySelector('button');
+    const prt_lst = document.querySelector('div');
+
+    let att = document.getElementById('att');
     let def = document.getElementById('def');
-    let att_num_dice = 3;
-    let def_num_dice = 2; 
+
 
     let att_trp = att.value;
     let def_trp = def.value;
 
-    // att_trp 0 || def_trp 0 -> finished
-
-    do {
-
-        var att_roll_rslt = ;
-        var def_roll_rslt = ;
+    btn_bttl.addEventListener('click' , battle() );
+});
 
 
-    } while(att_trp = 0 || def_trp = 0)
+// class Player {
+//     constructor () {
+
+//     }
+// };
+
+function prt_rec( attf , deff) {
+    var att_roll_rslt = attf;
+    var def_roll_rslt = deff;
+
+    var att_remained = att_trp;
+    var def_remained = def_trp;
+
+    var result = `공격 주사위 ${att_roll_rslt} 방어 주사위 ${def_roll_rslt} 
+    공격자 남은 군대 ${att_trp} 방어자 남은 군대 ${def_trp}`; 
+
+    const brec = document.createElement('p');
+    brec.textContent = result;
+    prt_lst.appendChild(brec);
+
+    // hdr.setAttribute('id' , "header-idx");
+    // document.body.appendChild(hdr);
+
+    // const dv_hdr = document.createElement('div');
+    //         dv_hdr.setAttribute('class' , "navitem");
+    //         hdr.appendChild(dv_hdr);
+
+    //         const hd = document.createElement('a');
+            
+    //         hd.textContent = idxList[i];
+    //         hd.setAttribute('href' , purl[i]);
+    //         hd.setAttribute('class' , "lstitem");
+
+    //         dv_hdr.appendChild(hd);
+};
 
 
-    // att_trp <= 2 def_trp <=1
-    if()
+
+function prt_rslt() {
+
+    if (att_trp > def_trp ) {
+
+        const winner = `공격측 부대 ${att_trp} 남음 수비측 부대 ${def_trp} 남음`;
+
+    } else {
+        const winner = `공격측 부대 ${att_trp} 남음 수비측 부대 ${def_trp} 남음`;
+    }
+
+        
+        var prt_win = document.body.createElement('p');
+        prt_win.textContent = winner;
+        prt_lst.appendChild(prt_win);
+
 
 };
 
-function prt_rec() {
+
+function battle() {
+
+    while ( (att_trp = 0) || (def_trp = 0) ) {
+        compare_dice();
+        // probe_reteat();
+    }
+
+    prt_rslt();
     
-};
+}
 
+// function probe_reteat() {
 
+    
 
-function prt_rslt() {};
+//     var prb = document.createElement('p');
+//     prb.textContent = "후퇴하시겠습니까?";
 
+//     const button = document.createElement('button');
+//     prt_lst.appendChild(prt_win);
+ 
+//     // 키입력으로 space
+//     var answer = addEventListener();
+
+//     if 
+    
+// }
 
 function compare_dice() {
 
-    if(att_trp < 3) att_num_dice = att_trp;
-    var att_rollset = collect_dice(att_num_dice);
-    att_rollset.sort(function(a, b)  {
-    if(a > b) return 1;
-    if(a === b) return 0;
-    if(a < b) return -1;
-    });
+    let att_fire = collect_dice(att_trp, 3);
+    let def_fire = collect_dice(def_trp, 2);
+
+
+    if ( (att_fire.lenth = 1) || (def_fire.length = 1) ) {
+        if (att_fire[0] > def_fire[0]) {
+         def_trp -= 1;
+        }else{
+         att_trp -= 1;
+        };
+        
+    } else {
+
+        if (att_fire[0] > def_fire[0]) {
+         def_trp -= 1;
+        }else{
+         att_trp -= 1;
+        };
+
     
-    if(def_trp < 2) def_num_dice = def_trp;
-    car def rollset = collect_dice(def_num_dice);
-    def_rollset.sort(function(a, b)  {
-    if(a > b) return 1;
-    if(a === b) return 0;
-    if(a < b) return -1;
-    });
+        if (att_fire[1] > def_fire[1]) {
+         def_trp -= 1;
+        }else{
+         att_trp -= 1;
+        };
+        
+    };
 
+    prt_rec( att_fire , def_fire, );
+};
 
-    //  주사위 2개이상
-    // if (att_rollset[0] > def_rollset[0]) {
-    //     def_trp -= 1;
-    // }else{
-    //     att_trp -+ 1;
-    // }
+function collect_dice(trp , proll) {
+
+    let rollnum = proll;
+    let remmained = trp; 
+    let rollset = Array();
+
+    if (remained < 3) rollnum = remained; 
+
+    //roll
+    for(var i=0; i=rollnum ; i++) {
+        rollset[i] = roll_dice();
+    }
+
+    let argd_dice = arrange_dice(rollset);
+    return argd_dice;
 
 }; 
 
+function arrange_dice( roll_rec ) {
+   
+    var rollset = rollrec;
+    if(rollset !== 1) {
+        rollset.sort(function(a, b)  {
+            if(a > b) return 1;
+            if(a === b) return 0;
+            if(a < b) return -1;
+            });
+        } //end if
 
+    return rollset;
 
-function collect_dice(dnum) {
-    var dice_num = dnum;
-    var dice_rec = [];
-
-    for(var i=0; i = dice_num ; i++) {
-        dice_rec[i] = roll_dice();
-    }
-
-
-    return dice_rec;
 };
+
 
 function roll_dice(){
         
@@ -114,5 +214,6 @@ function roll_dice(){
     <button>주사위를 굴린다</button><br/>
 
     <p>이하 전투의 과정과 결과</p>
+    <div></div>
 </body>
 </html>

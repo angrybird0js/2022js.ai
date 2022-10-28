@@ -8,6 +8,10 @@
             "./devnote.html",
             "./about.html",
         ]; 
+
+
+    //onload event 생성
+    
     (window.onload = function() {
         showIndex();
 
@@ -48,6 +52,14 @@
 
             dv_hdr.appendChild(hd);
 
+
+            //내부에 구현 결과: 문제 
+            // const selItem = document.getElementsByClassName('lstitem');
+            
+            // selItem.addEventListner("mouseover", () => {
+            //     console.log("정상진행");
+            //     hd.textContent = `"[" + idxList + "]"`;
+            // });
 
             
             //var itemList = document.createTextNode(idxList[i]);

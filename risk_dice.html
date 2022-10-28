@@ -28,10 +28,18 @@ document.addEventListener('DOMContentLoaded', () => {
     let def = document.getElementById('def');
 
 
-    let att_trp = att.value;
-    let def_trp = def.value;
+    let att_trp = parseInt(att.value);
+    let def_trp = parseInt(def.value);
 
-    btn_bttl.addEventListener('click' , battle() );
+    btn_bttl.addEventListener('click' , () => {
+
+        compare_dice();
+        // probe_reteat();
+        //prt_rslt();
+
+
+
+    } );
 });
 
 
@@ -41,19 +49,19 @@ document.addEventListener('DOMContentLoaded', () => {
 //     }
 // };
 
-function prt_rec( attf , deff) {
-    var att_roll_rslt = attf;
-    var def_roll_rslt = deff;
+// function prt_rec( attf , deff) {
+//     var att_roll_rslt = attf;
+//     var def_roll_rslt = deff;
 
-    var att_remained = att_trp;
-    var def_remained = def_trp;
+//     var att_remained = att_trp;
+//     var def_remained = def_trp;
 
-    var result = `공격 주사위 ${att_roll_rslt} 방어 주사위 ${def_roll_rslt} 
-    공격자 남은 군대 ${att_trp} 방어자 남은 군대 ${def_trp}`; 
+//     var result = `공격 주사위 ${att_roll_rslt} 방어 주사위 ${def_roll_rslt} 
+//     공격자 남은 군대 ${att_remained} 방어자 남은 군대 ${def_remained}`; 
 
-    const brec = document.createElement('p');
-    brec.textContent = result;
-    prt_lst.appendChild(brec);
+//     const brec = document.createElement('p');
+//     brec.textContent = result;
+//     prt_lst.appendChild(brec);
 
     // hdr.setAttribute('id' , "header-idx");
     // document.body.appendChild(hdr);
@@ -69,17 +77,14 @@ function prt_rec( attf , deff) {
     //         hd.setAttribute('class' , "lstitem");
 
     //         dv_hdr.appendChild(hd);
-};
+//};
 
 
 
 function prt_rslt() {
 
-    if (att_trp > def_trp ) {
+    if (att_trp === 0 || def_trp === 0 ) {
 
-        const winner = `공격측 부대 ${att_trp} 남음 수비측 부대 ${def_trp} 남음`;
-
-    } else {
         const winner = `공격측 부대 ${att_trp} 남음 수비측 부대 ${def_trp} 남음`;
     }
 
@@ -92,16 +97,16 @@ function prt_rslt() {
 };
 
 
-function battle() {
+// function battle() {
 
-    while ( (att_trp = 0) || (def_trp = 0) ) {
-        compare_dice();
-        // probe_reteat();
-    }
+//     while ( (att_trp > 0) || (def_trp > 0) ) {
+//         compare_dice();
+//         // probe_reteat();
+//     }
 
-    prt_rslt();
+//     prt_rslt();
     
-}
+// }
 
 // function probe_reteat() {
 
@@ -123,10 +128,10 @@ function battle() {
 function compare_dice() {
 
     let att_fire = collect_dice(att_trp, 3);
-    let def_fire = collect_dice(def_trp, 2);
+    let def_fire = collect_dice(dep_trp, 2);
 
 
-    if ( (att_fire.lenth = 1) || (def_fire.length = 1) ) {
+    if ( (att_trp < 3) || (def_trp < 2) ) {
         if (att_fire[0] > def_fire[0]) {
          def_trp -= 1;
         }else{
@@ -150,23 +155,46 @@ function compare_dice() {
         
     };
 
-    prt_rec( att_fire , def_fire, );
+    // while ( (att_trp > 0) || (def_trp > 0) ) {
+    //     compare_dice();
+    //     // probe_reteat();
+        
+    //})
+    //prt_rec( att_fire , def_fire, );
+
+    var att_roll_rslt = attf;
+    var def_roll_rslt = deff;
+
+    var att_remained = att_trp;
+    var def_remained = def_trp;
+
+    var result = `공격 주사위 ${att_roll_rslt} 방어 주사위 ${def_roll_rslt} 
+    공격자 남은 군대 ${att_remained} 방어자 남은 군대 ${def_remained}`; 
+
+    const brec = document.createElement('p');
+    brec.textContent = result;
+    prt_lst.appendChild(brec);
 };
 
-function collect_dice(trp , proll) {
+function collect_dice(trp, proll) {
 
     let rollnum = proll;
-    let remmained = trp; 
-    let rollset = Array();
+    if (trp == 2 || trp == 1 ) {
+        rollnum = trp;
+    }
+    
 
-    if (remained < 3) rollnum = remained; 
-
-    //roll
-    for(var i=0; i=rollnum ; i++) {
-        rollset[i] = roll_dice();
+    
+    for(var i=0; i <= rollnum ; i++) {
+        let roll = roll_dice();
+        
     }
 
+
+
     let argd_dice = arrange_dice(rollset);
+    console.log(argd_dice); 
+    console.error(argd_dice);
     return argd_dice;
 
 }; 
@@ -179,22 +207,18 @@ function arrange_dice( roll_rec ) {
             if(a > b) return 1;
             if(a === b) return 0;
             if(a < b) return -1;
-            });
-        } //end if
-
+        });
+    } //end if
+    console.log(rollset);
     return rollset;
 
 };
 
 
 function roll_dice(){
-        
-        
     //document.write(parseInt( Math.random() * (10 - 1) ) + 1);
-        var rolldice = parseInt((Math.random() * 6) + 1);
-
-
-        return rolldice; 
+    var rolldice = parseInt((Math.random() * 6) + 1);
+    return rolldice; 
 };
 
 </script>

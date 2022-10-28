@@ -42,3 +42,12 @@
 // Promise
 // https://elvanov.com/2597
 // https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
+
+
+// btn.addEventListener('click', record_lot() );
+// 콜백 반환값 없으면 무조건 익명함수 쓸것.
+// 콜백의 리턴을 함수로 정의 가능.
+// f(); 반환함수
+// f()(); 반환함수 실행 
+
+// https://deftkang.tistory.com/20

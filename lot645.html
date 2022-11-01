@@ -1,0 +1,86 @@
+<html>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    let btn = document.querySelector('button');
+    let prt_num = document.getElementById('numbers');
+    let prt_bonus = document.getElementById('bonus');
+
+    let numbers = new Array();
+    let result = new Array();
+    
+    for (i = 1; i <= 45 ; i++) {
+        numbers.push(i);
+    }
+
+    
+    // btn.addEventListener('click', record_lot() );
+    // 콜백 반환값 없으면 무조건 익명함수 쓸것.
+    // 콜백의 리턴을 함수로 정의 가능.
+    // f(); 반환함수
+    // f()(); 반환함수 실행 
+
+    btn.addEventListener('click', () => {
+
+    for(i=1; i <= 6 ;i++) {
+
+        var numpool = numbers.length-1;
+        var each_num = lot(numpool);
+        var numset = numbers.splice(each_num, 1);
+        result.push(numset);
+
+
+        prt_num.textContent = `${result[0]}, ${result[1]}, ${result[2]}, ${result[3]}, ${result[4]}`;
+        prt_bonus.textContent = ` 보너스 2위 ${result[5]}`;
+
+    }
+    });
+
+
+
+
+
+// function record_lot() {
+
+
+
+//     for(i=1; i <= 6 ;i++) {
+
+//         var numpool = numbers.length-1;
+//         var each_num = lot(numpool);
+//         var numset = numbers.splice(each_num, 1);
+//         result.push(numset);
+        
+//     }
+
+//     prt_num.textContent = `${result[0]}, ${result[1]}, ${result[2]}, ${result[3]}, ${result[4]}`;
+//     prt_bonus.textContent = ` 보너스 2위 ${result[5]}`;
+    
+// };
+
+function lot(lastnum) {
+
+    let lottery = 1 + Math.floor(Math.random() * lastnum , 0);
+    return lottery;
+};
+
+});
+
+
+</script>
+
+<body>
+    <h1>Lotto 복표 당첨번호 생성기</h1>
+    <p width="800px"> 45개의 숫자 중에서 5개의 숫자를 추첨하며 마지막 숫자를 보너스 숫자로 추첨한다.</p>
+    <button>추첨시작</button><br/>
+
+    <p>당첨번호는</p>
+    <p id="numbers"></p>
+    <p id="bonus"></p>
+
+
+
+
+
+</body>
+</html>

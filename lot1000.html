@@ -1,0 +1,114 @@
+<html>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+
+
+
+    let prt_num = document.getElementById('numbers');
+    let prt_bonus = document.getElementById('bonus');
+
+    let numbers = new Array();
+    let result = new Array();
+    
+    for (i = 1; i <= 45 ; i++) {
+        numbers.push(i);
+    }
+
+    
+    // btn.addEventListener('click', record_lot() );
+
+
+    for(i=1; i <= 6 ;i++) {
+
+        var numpool = numbers.length-1;
+        var each_num = lot(numpool);
+        var numset = numbers.splice(each_num, 1);
+        result.push(numset);
+
+
+        prt_num.textContent = `${result[0]}, ${result[1]}, ${result[2]}, ${result[3]}, ${result[4]}`;
+        prt_bonus.textContent = ` 보너스 2위 ${result[5]}`;
+
+    }
+    
+
+
+
+
+function lot(lastnum) {
+
+    let lottery = 1 + Math.floor(Math.random() * lastnum , 0);
+    return lottery;
+};
+
+// 메인코드를 콜백 함수로 
+// 누적 계산기를 만들고 출력함수
+
+// 1에서 45까지 3열 테이블 작성
+
+function prt each_rec() {};
+
+var allrec_length = 45;
+var cellnum_onerow = 5;
+var rownum = allrec_length / cellnum_onerow;
+// 나머지 셀 구현을 위한 처리
+if (allrec_length % cellnum_onerow !== 0) rownum +=1;
+
+var onetable = document.createElement('table');
+
+for (let i =1; i <= rownum; i++) {
+
+    var prt_1row = list_row();
+
+    onetable.appendChild(prt_1row); //콜백의 반환값 주의
+
+
+}
+
+function list_row() {
+
+    return () => {}; // 완성된 모듈 안에 전부 집어넣기
+    const onerow = document.createElement('tr');
+    
+    for () {}
+    // 개별 셀에 nth-child(2n+1) 또는 %2=0 활용
+    const onecell = document.createElement('td');
+
+    onerow.appendChild(onecell);
+
+    //일차 줄단위로 클래스를 선택함
+    onerow.setAttribute('class' , "num_row");
+    onerow.setAttribute('class' , "val_row");
+
+    fillvalue 
+}
+
+
+});
+
+
+</script>
+
+<body>
+    <h1>Lotto 복표 당첨번호 생성기</h1>
+    <p width="800px"> 45개의 숫자 중에서 5개의 숫자를 추첨하며 
+        마지막 숫자를 보너스 숫자로 추첨한다.
+        1000회를 수행하여 숫자별 결과값과 개별 추첨 결과값을 표시한다.
+
+        추가로 1000 회를 추첨하고 당첨번호 목록과 번호별 당첨횟수를 표시. 
+    </p>
+    
+
+    <p>숫자별 당첨횟수</p>
+    
+    <p id="numbers"></p>
+    
+    <p>개별기록</p>
+
+
+
+
+
+</body>
+</html>

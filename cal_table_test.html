@@ -1,0 +1,77 @@
+<html>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+
+
+// 메인코드를 콜백 함수로 
+// 누적 계산기를 만들고 출력함수
+
+// 1에서 45까지 3열 테이블 작성
+
+function prt_each_rec() {};
+
+var allrec_length = 45;
+var cellnum_onerow = 5;
+var rownum = allrec_length / cellnum_onerow;
+// 나머지 셀 구현을 위한 처리
+if (allrec_length % cellnum_onerow !== 0) rownum +=1;
+
+// 각 셀에 들어갈 접근자를 구성, 
+// 셀번호 카운트하여 id 지시자에 추가
+// var cellnum = 0;
+
+// 테이블 구현
+var onetable = document.createElement('table');
+// 줄구현
+for (let i =1; i <= rownum; i++) {
+    
+    const onerow = document.createElement('tr');
+
+    //셀구현
+    for (let j=1;j<=cellnum_onerow;j++) {
+    const onecell = document.createElement('td');
+    }
+    onerow.appendChild(onecell);
+}
+
+//일차 줄단위로 클래스를 선택함
+const allrow = document.getElementsByTagName('tr');
+
+for (let idx = 1; idx <= allrow.length ; idx++ ) {
+
+    if (idx == 1 ) { allrow[i].setAttribute('class' , "num_row"); }
+
+    else if(idx % 2 == 0) {
+        allrow[i].setAttribute('class' , "val_row");
+        }
+    else if(idx % 2 == 1) {allrow[i].setAttribute('class' , "val_row");}
+
+}
+
+// const idx_row = document.getElementsByClassName('num_row');
+// // 안되면 콤마로 구분하여 선택해볼것
+// for (let i = 1; i <= idxrow.length; i++) {
+//     idx_row.
+// } 스냅 안잡힘
+
+//DOM 으로 잡는다면 선택자뿐만 아니라 인덱스 형성도 잘 되지 않는다.
+// TD 를 값을 입력할때 만들거나
+// TR , TABLE을 나중에 만들어야
+//document.body.insertBefore(toc, document.body.firstChild);
+//
+
+
+
+</script>
+
+<body>
+    <h1>Specific Table Generator</h1>
+
+
+
+
+
+
+</body>
+</html>

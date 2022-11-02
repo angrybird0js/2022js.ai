@@ -51,3 +51,36 @@
 // f()(); 반환함수 실행 
 
 // https://deftkang.tistory.com/20
+
+
+// DOM 으로 table 제작 
+// 동적 테이블 Dynamic Table
+
+
+// <script>
+//     var x = document.createElement("TABLE");
+//     x.setAttribute("id","myTable");
+//     document.body.appendChild(x);
+
+//     var y = document.createElement("TR");
+//     x.setAttribute("id","myTr");
+//     document.getElementById("myTable").appendChild(y);
+
+//     var z = document.createElement("TD");
+//     var t = document.createElement("cell");
+//     z.appendChild(t);
+
+//     document.getElementById("myTr").appendChild(z);
+//     document.getElementById("myTable").style.border = "1px solid black"
+// </script>
+
+// document.x.appendChild(y) 가 아니다.
+// https://velog.io/@msjulyone/TIL-0001.-Table%EB%A7%8C%EB%93%A4%EA%B8%B0
+
+// tr 열 레코드처럼 추가 삭제
+// https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=javaking75&logNo=140163950156
+
+
+
+
+

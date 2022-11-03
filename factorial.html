@@ -16,8 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const result = document.getElementById('result');
     //const process = document.getElementById('result');
 
-
-    //계산과정 출력 구현
+    
+    //계산과정 출력 구현, 2차원 배열
     //prt_process()
     //recval()
 
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //값을 받아야 한다.
     // result.textContent += fac(input);
     facbtn.addEventListener('click' , () => {
-        const inval = parseInt(input.value);
+        const inval = parseInt(input.value); // 틀록 벗어나면 오류
         const vl = fac(inval);
 
         //결과값 출력
@@ -37,6 +37,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }); //facbtn
 
+    // fibbtn.addEventListner('click', () => {
+        // const inval = parseInt(input.value); // 틀록 벗어나면 오류
+
+        // const fibo = (num, memo) => {
+        //   memo = memo || {}  //parameter
+        //   if(memo[num]){
+        //       return memo[num];
+        //   }
+        //   if(num<=1){
+        //       return num;
+        //   }
+        //   return fibo(num-1, memo) + fibo(num-2, memo);
+        //  }
+
+        // fibo(inval);
+
+        // result.textContent = fibo;
+    //});
 
 }); // document
 
@@ -53,10 +71,13 @@ document.addEventListener('DOMContentLoaded', () => {
             inum -= 1;
         }
 
-        // recval(inum, rslt);
+        // recval(inum, rslt); value collector, 전역변수나 배열에 push값 추가.
 
         return rslt;
     }; // fac 위치는 관계없이 값 출력됨
+
+
+
 
 
 

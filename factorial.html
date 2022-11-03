@@ -1,0 +1,80 @@
+
+
+<html>
+<script>
+//팩토리얼과 피보나치 수열 만들기
+
+// 입력값이 크면 메모이제이션 별도로 분기함
+
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const input = document.getElementById('iput_num');
+    const facbtn = document.getElementById('facbtn');
+    //const fibbtn = document.getElementById('fibbtn');
+    
+    const result = document.getElementById('result');
+    //const process = document.getElementById('result');
+
+
+    //계산과정 출력 구현
+    //prt_process()
+    //recval()
+
+
+    //값을 받아야 한다.
+    // result.textContent += fac(input);
+    facbtn.addEventListener('click' , () => {
+        const inval = parseInt(input.value);
+        const vl = fac(inval);
+
+        //결과값 출력
+        result.textContent = vl;
+        //v2 = rec...
+        //process.textContent = 
+
+
+
+    }); //facbtn
+
+
+}); // document
+
+
+
+    function fac(num) {
+
+        var inum = num;
+        var rslt = 1;
+
+        for (var i = inum; i >= 1; i--) { // var i , 값이 크거나 작아야 한다 따라서 >=
+            //여기서 rslt 선언하면 undefined
+            rslt *= inum;
+            inum -= 1;
+        }
+
+        // recval(inum, rslt);
+
+        return rslt;
+    }; // fac 위치는 관계없이 값 출력됨
+
+
+
+</script>
+
+<body>
+    <h1>factorial and fibonacci generator</h1>
+
+    <label>숫자를 입력하라</label>
+    <input id="iput_num" type="text" />
+
+    <button id="facbtn">계승을 계산하라</button><br/>
+    <!-- <button id="fibbtn" onclick="fib(num);"></button> -->
+    <!-- 팩토리얼 구현 정상적이다면 피보나치 구현 -->
+
+    <p>result에 textcontents로 값을 추가하는 방식이라면 계산을 재개했을때 값이 누적된다.</p>
+    <p>결과값은 : <span id="result"></span></p>
+    <p id="process">계산과정:</p>
+
+</body>
+</html>

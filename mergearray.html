@@ -1,0 +1,83 @@
+<html>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+
+    const arr1 = [1,2,3];
+    const arr2 = [4,5,6];
+    const arr3 = [7,8,9];
+
+    document.write(arr1 + "<br>");
+    document.write(arr2 + "<br>");
+    document.write(arr3 + "<br>");
+
+    //allarr = [...arr1,]
+    const allarr = Array();
+
+    function attatch_arr(arr) {
+
+        //
+        for (var i =0; i<arr[i]; i++) {
+            
+
+            allarr.push(arr[i]);
+            
+        }
+
+    };
+
+
+
+        //작동하지 않았음
+        var ttar = [arr1, arr2, arr3]; //을 파라미터로 전달
+
+    function merge_arr(...arg) {
+
+ // 정상
+        console.log(ttar);
+        for (var i= 0; i < ttar.length ; i++ ) { //작동함 
+            attatch_arr(ttar[i]);
+        }
+        
+    };
+
+ 
+    
+    // (function merge_arr() {
+
+    //     var ttar = [arr1, arr2, arr3]; // 정상
+    //     console.log(ttar);
+    //     for (var i= 0; i < ttar.length ; i++ ) { //작동함 
+    //         attatch_arr(ttar[i]);
+    //     }
+        
+    // })();
+
+    // 작동함
+    //출력함수, 즉시호출
+    // (function merge_arr() {
+    //     attatch_arr(arr1);
+    //     attatch_arr(arr2);
+    //     attatch_arr(arr3);
+    // })();
+
+
+    document.write("array all value :");
+    document.write(allarr + "<br>");
+    
+});
+
+
+
+</script>
+
+<body>
+    <h1>배열 합치기</h1>
+
+
+
+
+
+
+</body>
+</html>

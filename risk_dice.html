@@ -31,11 +31,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let att_trp = parseInt(att.value);
     let def_trp = parseInt(def.value);
 
+    const prcs = ""; // 과정 로그 기록 += 형태  
+
     btn_bttl.addEventListener('click' , () => {
 
         battle1();
         
-        //prt_rslt();
+        prt_rslt();
 
 
 
@@ -43,80 +45,38 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// class Player {
-//     constructor () {
-
-//     }
-// };
-
-// function prt_rec( attf , deff) {
-//     var att_roll_rslt = attf;
-//     var def_roll_rslt = deff;
-
-//     var att_remained = att_trp;
-//     var def_remained = def_trp;
-
-//     var result = `공격 주사위 ${att_roll_rslt} 방어 주사위 ${def_roll_rslt} 
-//     공격자 남은 군대 ${att_remained} 방어자 남은 군대 ${def_remained}`; 
-
-//     const brec = document.createElement('p');
-//     brec.textContent = result;
-//     prt_lst.appendChild(brec);
-
-    // hdr.setAttribute('id' , "header-idx");
-    // document.body.appendChild(hdr);
-
-    // const dv_hdr = document.createElement('div');
-    //         dv_hdr.setAttribute('class' , "navitem");
-    //         hdr.appendChild(dv_hdr);
-
-    //         const hd = document.createElement('a');
-            
-    //         hd.textContent = idxList[i];
-    //         hd.setAttribute('href' , purl[i]);
-    //         hd.setAttribute('class' , "lstitem");
-
-    //         dv_hdr.appendChild(hd);
-//};
-
-
 
 function prt_rslt() {
 
-    if (att_trp === 0 || def_trp === 0 ) {
-
-        const winner = `공격측 부대 ${att_trp} 남음 수비측 부대 ${def_trp} 남음`;
-    }
-
-        
-        var prt_win = document.body.createElement('p');
-        prt_win.textContent = winner;
-        prt_lst.appendChild(prt_win);
-
+    
+    const winner = `공격측 부대 ${att_trp} 남음 수비측 부대 ${def_trp} 남음`;
+    var prt_win = document.body.createElement('p');
+    prt_win.textContent = winner;
+    prt_lst.appendChild(prt_win); // 객채를 보유했는가 확인
 
 };
-    
-// // }
-// var result = `공격 주사위 ${att_roll_rslt} 방어 주사위 ${def_roll_rslt} 
-//     공격자 남은 군대 ${att_remained} 방어자 남은 군대 ${def_remained}<br />`; 
-
-//     const brec = document.createElement('p');
-//     brec.textContent = result;
-//     prt_lst.appendChild(brec);
 
 
 
-function battle1(player) {
+function battle1() {
 
-    var p1 = gen_arr(3, att_trp);
-    var p2 = gen_arr(2, def_trp);
+    var p1 = Array();
+    p1 = gen_arr(3, att_trp); //파라미터 값을 받아서 처리
+    var p2 = Array();
+    p2 = gen_arr(2, def_trp);
 
     compare_dice(p1,p2);
 
 }
 
+function cllct_msg(p1r, p2r) {
+
+    prcs += `공격측 주사위:${p1r} 수비측 주사위: ${p2r} <br />`;
+}
+
 
 function compare_dice(p1r,p2r) { //배열을 비교
+
 
     var bnum = 0;
     if (p1r.length < p2r.length) {
@@ -135,7 +95,7 @@ function compare_dice(p1r,p2r) { //배열을 비교
 
     }
 
-
+    cllct_msg(p1r,p2r); 
 
 };
 

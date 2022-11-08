@@ -3,6 +3,11 @@
 // OOP 
 // https://photos.google.com/share/AF1QipOj3DRaArVO9X3lyxpI5W8vkcK8pokzo4CwZXbsJ5Xa3Z2vDHKVErxqi_7ffE43Fg?key=dkdGRFdkWUl6R3lfdnY5LWU3TS1YYUNiMlNqODlB
 //
+
+// binding
+// https://velog.io/@danmin20/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-this-%EB%B0%94%EC%9D%B8%EB%94%A9%EC%9D%B4%EB%9E%80
+// https://ko.javascript.info/bind
+
 // DOM
 // https://photos.google.com/share/AF1QipMppMn8mFbs8-0BVfxk8ULnYDRiwko9ZdxCV4KX4Vs9tjJ7tBZkGrSRqm0Jih3_7w?key=UXVJUkdMWEo5Y0tHNDhXUnp3YVdUdUNQVTB3a0JR
 //

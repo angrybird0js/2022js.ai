@@ -1,101 +1,112 @@
 <html>
+<head>
+    <title></title>
 <script>
 
-// (window.onload = function() {
-//         roll_dice();
-
-
-//     })();
-
-
-// function dice() { return Math.floor((Math.random() * 10) + 1);};
-
-
-//att def side를 꼬리변수로 만들어 1:1 이상의 개량의 여지를 준다.
-// 테스트 함수 작성하여 값 확인
-// console.assert
-
-// 전투 종료시 후퇴 기능 추가
-
-
-
 document.addEventListener('DOMContentLoaded', () => {
+
+    try {
+    const iatt = document.getElementById('attin'); // 정의 안되어있음
+    const idef = document.getElementById('defin');
+    //버튼 안에 넣으면 처음값을 재입력 받음
+    } catch (exception) {
+        console.log("초기화 되지 않음");
+    }
+
+
 
     const btn_bttl = document.querySelector('button');
     const prt_lst = document.querySelector('div');
 
-    let att = document.getElementById('att');
-    let def = document.getElementById('def');
 
 
-    let att_trp = parseInt(att.value);
-    let def_trp = parseInt(def.value);
+    try {
+        let att = Number(this.iatt.value);
+        let def = Number(this.idef.value);
+        }
+        catch (exception) {
+            console.log("값이 넘어오지 않음");
+        }
+//click 이후 할당되는 값
+// 값이 들어가지 않는중
+// event listner 에서 input 값을 확인하게 한다.
 
-    const prcs = ""; // 과정 로그 기록 += 형태  
+//const prcs = ""; // 과정 로그 기록 += 형태  
 
-    btn_bttl.addEventListener('click' , () => {
+// 객체를 잃을수 있다.
 
-        battle1();
-        
-        prt_rslt();
+btn_bttl.addEventListener('click' , (event) => {
+
+battle1();
+
+prt_rslt();
 
 
-
-    } );
 });
+
+}); // DOM COntent Load 이벤트의 끝
+
 
 
 
 function prt_rslt() {
 
+    // 전투과정이 나오게 하는 구현부 위치
+
+    // 이하 결과출력부
     
-    const winner = `공격측 부대 ${att_trp} 남음 수비측 부대 ${def_trp} 남음`;
-    var prt_win = document.body.createElement('p');
-    prt_win.textContent = winner;
-    prt_lst.appendChild(prt_win); // 객채를 보유했는가 확인
+    const result = `공격측 부대 ${this.att} 남음 수비측 부대 ${this.def} 남음`;
+    
+    var prt = document.createElement('p'); // 객체 보유하도록 해야함
+    
+    prt.textContent = result;
+    document.getElementById("prt").appendChild(prt);
+    //prt_lst.appendChild(prt); // 객채를 보유했는가 확인
 
 };
 
 
 
 function battle1() {
-
-    var p1 = Array();
-    p1 = gen_arr(3, att_trp); //파라미터 값을 받아서 처리
-    var p2 = Array();
-    p2 = gen_arr(2, def_trp);
+    //파라미터 값을 받아서 처리, 배열값 보유해야 한다.
+    var p1 = gen_arr(3, this.att); 
+    var p2 = gen_arr(2, this.def);
 
     compare_dice(p1,p2);
 
 }
 
-function cllct_msg(p1r, p2r) {
-
-    prcs += `공격측 주사위:${p1r} 수비측 주사위: ${p2r} <br />`;
-}
+// function collect_msg(p1r, p2r) {
+//     // 배열 출력
+//     prcs += `공격측 주사위:${this.p1r} 수비측 주사위: ${this.p2r} <br />`;
+// }
 
 
 function compare_dice(p1r,p2r) { //배열을 비교
 
+    //p1r p2r this 지시자가 지정 못하면 지역변수에 할당함.
+    //배열
+    var p1 = p1r;
+    var p2 = p2r;
 
-    var bnum = 0;
-    if (p1r.length < p2r.length) {
-        bnum = p1r.length; 
+    var cnum = 1;
+    if (p1.length < p2.length) {
+        cnum = p1.length; 
     } else {
-        bnum = p2r.length;
+        cnum = p2.length;
     }
 
-    for (var i = 1; i <= bnum ; i++ ) {
-        if ( p1r[i] > p2r[i] ) {
-        def_trp -=1;
+    for (var i = 1; i <= cnum ; i++ ) {
+        if ( p1[i] > p2[i] ) {
+        this.def -=1;
         } else {
-        att_trp -=1;
+        this.att -=1;
         }
 
 
     }
 
-    cllct_msg(p1r,p2r); 
+    // collect_msg(p1,p2); 
 
 };
 
@@ -146,7 +157,10 @@ function roll_dice(){
     return rolldice; 
 };
 
+
+
 </script>
+</head>
 <body>
     <h1>Risk 주사위에 대한 설명</h1>
     <p width="800px">공격측은 3개의 주사위, 방어측은 2개의 주사위를 던지며 
@@ -158,11 +172,11 @@ function roll_dice(){
         군대가 1개 남아있다면 한개의 주사위를 던져야 한다.</p>
 
     <p>공격측과 수비측의 병력수를 입력하라.</p>
-    <input id ="att" type="text">공격측</input><br/>
-    <input id ="def" type="text">수비측</input><br/>
+    <input type="text" id = "attin">공격측</input><br/>
+    <input type="text" id = "defin">수비측</input><br/>
     <button>주사위를 굴린다</button><br/>
 
     <p>이하 전투의 과정과 결과</p>
-    <div></div>
+    <div id="prt"></div>
 </body>
 </html>

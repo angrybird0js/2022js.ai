@@ -3,16 +3,30 @@
     <title></title>
 <script>
 
+
+// try {
+//     const iatt = document.getElementById('attin'); // 정의 안되어있음
+//     const idef = document.getElementById('defin'); 
+//     // getElementById 만큼은 최상위 계층에서 구현해야 한다.
+//     //버튼 안에 넣으면 처음값을 재입력 받음
+// } catch (exception) {
+//         console.log("초기화 되지 않음");
+//         console.log(iatt);
+//     }
+
+// try {
+//     let att = Number(iatt.value);
+//     let def = Number(idef.value);
+//     }
+// catch (exception) {
+//     console.log("값이 넘어오지 않음");
+// }
+    //click 이후 할당되는 값
+    // 값이 들어가지 않는중
+    // event listner 에서 input 값을 확인하게 한다.
+
+
 document.addEventListener('DOMContentLoaded', () => {
-
-    try {
-    const iatt = document.getElementById('attin'); // 정의 안되어있음
-    const idef = document.getElementById('defin');
-    //버튼 안에 넣으면 처음값을 재입력 받음
-    } catch (exception) {
-        console.log("초기화 되지 않음");
-    }
-
 
 
     const btn_bttl = document.querySelector('button');
@@ -20,33 +34,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-    try {
-        let att = Number(this.iatt.value);
-        let def = Number(this.idef.value);
-        }
-        catch (exception) {
-            console.log("값이 넘어오지 않음");
-        }
-//click 이후 할당되는 값
-// 값이 들어가지 않는중
-// event listner 에서 input 값을 확인하게 한다.
-
 //const prcs = ""; // 과정 로그 기록 += 형태  
 
 // 객체를 잃을수 있다.
+// 초기값이 주어지지 않으면 열자마자 오류
 
-btn_bttl.addEventListener('click' , (event) => {
+    btn_bttl.addEventListener('click' , () => {
 
-battle1();
+        try {
+        const iatt = document.querySelector('#attin'); // 정의 안되어있음
+        const idef = document.querySelector('#defin');
+        console.log("dom 에서 값을 받음"); 
+        console.log(iatt.value);
+    // getElementById 만큼은 최상위 계층에서 구현해야 한다.
+    //버튼 안에 넣으면 처음값을 재입력 받음
+    }   catch (exception) {
+        console.log("초기화 되지 않음");
+        console.log(iatt.value);
+    }
 
-prt_rslt();
 
 
-});
+    try {
+    let att = Number(iatt.value);
+    let def = Number(idef.value);
+    console.log(" value 값을 받음");
+    console.log(att); 
+
+    }
+    catch (exception) {
+        console.log("값이 넘어오지 않음");
+        //console.log(att);
+    }
+
+
+    battle1();
+    prt_rslt();
+
+
+    });
 
 }); // DOM COntent Load 이벤트의 끝
-
-
 
 
 function prt_rslt() {
@@ -64,7 +92,6 @@ function prt_rslt() {
     //prt_lst.appendChild(prt); // 객채를 보유했는가 확인
 
 };
-
 
 
 function battle1() {
@@ -172,9 +199,11 @@ function roll_dice(){
         군대가 1개 남아있다면 한개의 주사위를 던져야 한다.</p>
 
     <p>공격측과 수비측의 병력수를 입력하라.</p>
+    <form>
     <input type="text" id = "attin">공격측</input><br/>
     <input type="text" id = "defin">수비측</input><br/>
     <button>주사위를 굴린다</button><br/>
+    </form>
 
     <p>이하 전투의 과정과 결과</p>
     <div id="prt"></div>

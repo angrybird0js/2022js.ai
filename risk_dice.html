@@ -4,33 +4,30 @@
 <script>
 
 
-// try {
-//     const iatt = document.getElementById('attin'); // 정의 안되어있음
-//     const idef = document.getElementById('defin'); 
-//     // getElementById 만큼은 최상위 계층에서 구현해야 한다.
-//     //버튼 안에 넣으면 처음값을 재입력 받음
-// } catch (exception) {
-//         console.log("초기화 되지 않음");
-//         console.log(iatt);
-//     }
 
-// try {
-//     let att = Number(iatt.value);
-//     let def = Number(idef.value);
-//     }
-// catch (exception) {
-//     console.log("값이 넘어오지 않음");
-// }
-    //click 이후 할당되는 값
-    // 값이 들어가지 않는중
-    // event listner 에서 input 값을 확인하게 한다.
 
 
 document.addEventListener('DOMContentLoaded', () => {
 
 
+
     const btn_bttl = document.querySelector('button');
-    const prt_lst = document.querySelector('div');
+
+    try {
+        const iatt = document.querySelector('#attin').value; // 정의 안되어있음
+        const idef = document.querySelector('#defin').value;
+        console.log("dom 에서 값을 받음"); 
+        console.log(iatt, idef);
+        prt_rslt(iatt, idef);
+    // getElementById 만큼은 최상위 계층에서 구현해야 한다.
+    //버튼 안에 넣으면 처음값을 재입력 받음
+        }   catch (exception) {
+            console.log("초기화 되지 않음");
+            console.log(iatt, idef);
+        }
+
+
+
 
 
 
@@ -39,67 +36,63 @@ document.addEventListener('DOMContentLoaded', () => {
 // 객체를 잃을수 있다.
 // 초기값이 주어지지 않으면 열자마자 오류
 
-    btn_bttl.addEventListener('click' , () => {
-
+    btn_bttl.addEventListener('click' , (iatt, idef) => {
+    
         try {
-        const iatt = document.querySelector('#attin'); // 정의 안되어있음
-        const idef = document.querySelector('#defin');
-        console.log("dom 에서 값을 받음"); 
-        console.log(iatt.value);
-    // getElementById 만큼은 최상위 계층에서 구현해야 한다.
-    //버튼 안에 넣으면 처음값을 재입력 받음
-    }   catch (exception) {
-        console.log("초기화 되지 않음");
-        console.log(iatt.value);
-    }
+        let att = iatt; // not defined
+        let def = idef;
+        console.log(" value 값을 받음");
+        console.log(att); 
 
+        }
+        catch (exception) {
+            console.log("값이 넘어오지 않음");
+            console.log(att);
+        }
+    
+        prt_rslt(iatt, idef);
 
+        battle1(iatt, idef); //event와 결부
 
-    try {
-    let att = Number(iatt.value);
-    let def = Number(idef.value);
-    console.log(" value 값을 받음");
-    console.log(att); 
-
-    }
-    catch (exception) {
-        console.log("값이 넘어오지 않음");
-        //console.log(att);
-    }
-
-
-    battle1();
-    prt_rslt();
-
-
+        prt_rslt(att, def);
     });
+
 
 }); // DOM COntent Load 이벤트의 끝
 
 
-function prt_rslt() {
+function prt_rslt(at, df) {
 
     // 전투과정이 나오게 하는 구현부 위치
 
     // 이하 결과출력부
     
-    const result = `공격측 부대 ${this.att} 남음 수비측 부대 ${this.def} 남음`;
-    
-    var prt = document.createElement('p'); // 객체 보유하도록 해야함
-    
-    prt.textContent = result;
-    document.getElementById("prt").appendChild(prt);
-    //prt_lst.appendChild(prt); // 객채를 보유했는가 확인
+    const result = `공격측 부대 ${at} 남음 수비측 부대 ${df} 남음`;
+
+    //const prt_lst = document.querySelector('div');
+    var rpt = document.createElement('p'); // 객체 보유하도록 해야함
+    rpt.textContent = result;
+    document.getElementById("prt").appendChild(rpt);
+    // prt_lst.appendChild(prt); // 객채를 보유했는가 확인
 
 };
 
 
-function battle1() {
-    //파라미터 값을 받아서 처리, 배열값 보유해야 한다.
-    var p1 = gen_arr(3, this.att); 
-    var p2 = gen_arr(2, this.def);
+function battle1(at, df) {
+    // 파라미터 값을 받아서 처리, 
+    // 배열값 보유해야 한다.
+    try {
+    console.log(at,df);
+    var p1 = gen_arr(3, at); 
+    var p2 = gen_arr(2, df);
+    } catch (exception) {
+    console.log("p1,p2값 undefined");
+    }
 
+    console.log(p1,p2);
     compare_dice(p1,p2);
+
+    
 
 }
 
@@ -125,9 +118,9 @@ function compare_dice(p1r,p2r) { //배열을 비교
 
     for (var i = 1; i <= cnum ; i++ ) {
         if ( p1[i] > p2[i] ) {
-        this.def -=1;
+        def -=1;
         } else {
-        this.att -=1;
+        att -=1;
         }
 
 
@@ -179,7 +172,7 @@ function pdice(nroll) { //재작성
 
 
 
-function roll_dice(){
+function roll_dice() {
     var rolldice = parseInt((Math.random() * 6) + 1);
     return rolldice; 
 };
@@ -200,8 +193,8 @@ function roll_dice(){
 
     <p>공격측과 수비측의 병력수를 입력하라.</p>
     <form>
-    <input type="text" id = "attin">공격측</input><br/>
-    <input type="text" id = "defin">수비측</input><br/>
+    <input type="text" id = "attin" value = "7">공격측</input><br/>
+    <input type="text" id = "defin" value = "5">수비측</input><br/>
     <button>주사위를 굴린다</button><br/>
     </form>
 

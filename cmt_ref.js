@@ -90,4 +90,10 @@
 
 
 
-
+// dom 에서 null undefaied 처리
+// function updateHTML(elmId, value) {
+//     var elem = document.getElementById(elmId);
+//     if(typeof elem !== 'undefined' && elem !== null) {
+//       elem.innerHTML = value;
+//     }
+//   }

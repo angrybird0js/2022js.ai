@@ -1,0 +1,192 @@
+<html>
+<head>
+    <title></title>
+<script>
+
+let att = 0;
+let def = 0;
+
+document.addEventListener('DOMContentLoaded', () => {
+
+
+
+    const btn_bttl = document.querySelector('button');
+
+
+    const iatt = document.querySelector('#attin').value; // 정의 안되어있음
+    const idef = document.querySelector('#defin').value;
+    console.log("dom 에서 값을 받음"); 
+
+    att = iatt;
+    def = idef;
+
+    // getElementById 만큼은 최상위 계층에서 구현해야 한다.
+    //버튼 안에 넣으면 처음값을 재입력 받음
+
+//const prcs = ""; // 과정 로그 기록 += 형태  
+
+// 객체를 잃을수 있다.
+// 초기값이 주어지지 않으면 열자마자 오류 ??
+
+// <<< 새 방법으로 각 단계별로 버튼을 만들어서 시행 >>>
+
+    btn_bttl.addEventListener('click' , prt_rslt() );
+
+    
+
+}); // DOM COntent Load 이벤트의 끝
+
+
+function prt_rslt() {
+
+    // 전투과정이 나오게 하는 구현부 위치
+
+    // 이하 결과출력부
+    
+    battle1();
+
+    // 출력부가 먼저 실행될 수 있으므로 출력값을 받아오고
+    // 이후 전역변수를 고치도록 만든다.
+
+    const result = `공격측 부대 ${att} 남음 수비측 부대 ${def} 남음`;
+
+    //const prt_lst = document.querySelector('div');
+    var rpt = document.createElement('p'); // 객체 보유하도록 해야함
+    rpt.textContent = result;
+    document.getElementById("prt").appendChild(rpt);
+    // prt_lst.appendChild(prt); // 객체를 보유했는가 확인
+
+};
+
+
+function battle1() {
+
+    var p1 = Array();
+    var p2 = Array();
+    
+    // 주사위 수 넘겨주고 주사위 배열 반환
+    p1 = gen_arr(3, att); 
+    p2 = gen_arr(2, def); // 배열값이 반환됨
+
+
+
+    // 범위 밖인 경우 매개변수를 전부 넘겨야 한다. 
+    console.log(p1,p2); 
+    // 값이 나오지만 원래 의도한 배열 길이보다 1씩 짮고 정렬순서도 반대
+    // 고쳐짐 
+    compare_dice(p1,p2); // 
+
+};
+
+
+// function collect_msg(p1r, p2r) {
+//     // 배열 출력
+//     prcs += `공격측 주사위:${this.p1r} 수비측 주사위: ${this.p2r} <br />`;
+// }
+
+
+
+
+
+    
+function compare_dice(p1r,p2r) { //배열을 비교
+
+//p1r p2r this 지시자가 지정 못하면 지역변수에 할당함.
+//배열
+var p1 = p1r;
+var p2 = p2r;
+
+var cnum = 1;
+if (p1.length < p2.length) {
+    cnum = p1.length; 
+} else {
+    cnum = p2.length;
+}
+
+for (var i = 1; i <= cnum ; i++ ) {
+    if ( p1[i] > p2[i] ) {
+    def -=1; //의심구간
+    } else {
+    att -=1;
+    }
+}
+
+console.log("결과");
+console.log(att, def);
+
+// collect_msg(p1,p2); 
+
+};
+
+
+
+function gen_arr(player, tpnum){
+var bet = num_dice(player, tpnum);
+var rslt = pdice(bet); // 인자는 횟수
+
+return rslt;
+};
+
+
+function num_dice(player, trpnum) { // player 는 3, 2 값만 받음
+
+var dicenum = 0;
+
+if (trpnum == 1 || trpnum == 2 ) {
+    dicenum = trpnum;
+} else {
+    dicenum = player;
+}
+
+return dicenum;
+};
+
+
+function pdice(nroll) { //재작성
+
+    // 3개 2개씩 나오도록 고치고 오름차순으로 정렬됨
+var rollset = Array();
+for (var i=1 ; i <= nroll ; i++) {
+    let roll = roll_dice();
+    rollset.push(roll);
+}
+
+rollset.sort(function(a, b)  {
+        if(a > b) return -1;
+        if(a === b) return 0;
+        if(a < b) return 1;
+    });
+return rollset; // 배열
+
+}; 
+
+
+
+function roll_dice() {
+var rolldice = parseInt((Math.random() * 6) + 1);
+return rolldice; 
+};
+
+</script>
+</head>
+<body>
+    <h1>Risk 주사위에 대한 설명</h1>
+    <p width="800px">공격측은 3개의 주사위, 방어측은 2개의 주사위를 던지며 
+        공격측과 방어측의 가장 높은 숫자의 주사위 2개를 
+        각기 1등과 2등끼리 비교하여 
+        공격측이 더 높다면 공격측의 승리, 
+        숫자가 같거나 수비측이 더 높다면 수비측의 승리로 결정된다. 
+        비교되는 숫자 1회당 군대(troop) 하나에 해당하며 
+        군대가 1개 남아있다면 한개의 주사위를 던져야 한다.</p>
+
+    <p>공격측과 수비측의 병력수를 입력하라.</p>
+    <form>
+    <input type="text" id = "attin" value = "7">공격측</input><br/>
+    <input type="text" id = "defin" value = "5">수비측</input><br/>
+    <button>주사위를 굴린다</button><br/>
+    </form>
+
+    <p>이하 전투의 과정과 결과</p>
+    <div id="prt"></div>
+</body>
+</html>

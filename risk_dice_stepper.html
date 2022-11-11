@@ -1,0 +1,75 @@
+<html>
+<head>
+    <title></title>
+<script>
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+
+
+
+    const btn_bttl = document.querySelector('button');
+
+
+    const att = document.querySelector('#attin').value; // 정의 안되어있음
+    const def = document.querySelector('#defin').value;
+
+// <<< 새 방법으로 각 단계별로 버튼을 만들어서 시행 >>>
+
+    btn_bttl.addEventListener('click' , rpt() );
+
+    // 블록 밖으로 나가면 att, def 값을 찾지 못함.
+    // att, def 는 지역변수이다.
+    // 외부에 정의하려면 매개변수로 넘겨준 후 내장함수에서 받아온 후 값을 조정해야 한다.
+    // value 초기값을 변경할수 없다.
+    // 호출부 뿐만 아니라 함수 선언부 또한 유효범위 내에 위치해야 한다.
+    function rpt() {
+    // var roll_one = roll_dice(); 주사위 실험용
+    const result = `공격측 부대 ${att} 남음 수비측 부대 ${def} 남음, 주사위눈${roll_one}`;
+    
+    var rpt = document.createElement('p');
+    rpt.textContent = result;
+    document.getElementById("prt").appendChild(rpt);
+    };  
+
+
+
+}); // DOM COntent Load 이벤트의 끝
+
+
+
+
+
+function roll_dice() {
+var rolldice = parseInt((Math.random() * 6) + 1);
+return rolldice; 
+};
+
+
+
+</script>
+</head>
+<body>
+    <h1>Risk 주사위에 대한 설명</h1>
+    <p width="800px">공격측은 3개의 주사위, 방어측은 2개의 주사위를 던지며 
+        공격측과 방어측의 가장 높은 숫자의 주사위 2개를 
+        각기 1등과 2등끼리 비교하여 
+        공격측이 더 높다면 공격측의 승리, 
+        숫자가 같거나 수비측이 더 높다면 수비측의 승리로 결정된다. 
+        비교되는 숫자 1회당 군대(troop) 하나에 해당하며 
+        군대가 1개 남아있다면 한개의 주사위를 던져야 한다.</p>
+
+    <p>공격측과 수비측의 병력수를 입력하라.</p>
+    <form>
+    <input type="text" id = "attin" value = "7">공격측</input><br/>
+    <input type="text" id = "defin" value = "5">수비측</input><br/>
+    <button>주사위를 굴린다</button><br/>
+    </form>
+
+    <p>이하 전투의 과정과 결과</p>
+    <div id="prt"></div>
+</body>
+</html>

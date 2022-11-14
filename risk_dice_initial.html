@@ -103,10 +103,10 @@ if (p1.length < p2.length) {
     cnum = p2.length;
 }
 
-for (var i = 1; i <= cnum ; i++ ) {
+for (var i = 0; i < cnum ; i++ ) {
     if ( p1[i] > p2[i] ) {
     def -=1; //변경없을 경우 '5' 와 같이 출력된다.
-    } else {
+    } else if (p1[i] <= p2[i]) {
     att -=1;
     }
 }

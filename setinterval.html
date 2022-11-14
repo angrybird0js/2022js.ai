@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>타이머문제</title>
+
+    <script>
+//        var count = 5
+//        var countdown
+        var state = true
+        
+          function fn() {
+            
+            var count = 5
+            var countdown
+
+              
+            countdown = setInterval(function(){
+                
+                if (state) {
+                // console.log(typeof(count))
+                if (count > 0) console.log(count --);
+                else {
+                    console.log('끗')
+                    clearInterval(countdown)
+                } 
+                }
+                    
+            },1000)
+            
+            
+            
+            // if (count <= 0) clearInterval(times); // 안됨
+        } //end fn
+        
+        
+        
+        function fnx() { // 어거지 일회용 정지함수
+            state = false;
+            fn()
+        } // end fnx
+        
+        
+//        재개함수는 타이머가 소멸하여 counter 에서 남은시간을 따로 받아 재호출하는 기능이 들어가야 한다.
+    </script>
+</head>
+<body>
+    <pre><h2>
+    나를 눌러봐 버튼을 누르면
+    console.log 에
+    5
+    4
+    3
+    2
+    1
+    펑!
+    이 출력되도록 하라
+    단 펑! 은 alert을 통해서 팝업 하도록 하기.
+    나를 멈춰봐 버튼을 누르면 언제든지 타이머가 멈춤</h2></pre>
+    <button onclick="fn()">나를 눌러봐</button>
+    <button onclick="fnx()">나를 멈춰봐</button>
+</body>
+</html>

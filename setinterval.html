@@ -14,14 +14,12 @@
           function fn() {
             
             var count = 5
-            var countdown
-
-              
-            countdown = setInterval(function(){
+            // 선언과 할당을 따로 하면 출력이 달라진다.
+            var countdown = setInterval(function(){
                 
                 if (state) {
                 // console.log(typeof(count))
-                if (count > 0) console.log(count --);
+                if (count > 0) console.log(count--);
                 else {
                     console.log('끗')
                     clearInterval(countdown)
@@ -38,8 +36,9 @@
         
         
         function fnx() { // 어거지 일회용 정지함수
-            state = false;
-            fn()
+            // state = false;
+            state = !state
+            // fn()
         } // end fnx
         
         

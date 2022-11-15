@@ -97,3 +97,13 @@
 //       elem.innerHTML = value;
 //     }
 //   }
+
+
+
+// ( () => fn(); )(); // 즉시시행함수 맨위로 가야한다. hiosting, 메모리 적재 순서 문제 
+// window.onload 로 다 불러들인후 실행
+// 익명함수는 즉시시행 함수가 잘 따라다닌다.
+// 콜백함수 참고
+// hoisting
+// https://first-class.tistory.com/15
+

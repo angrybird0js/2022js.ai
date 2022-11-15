@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        const COUNTER = (function (){
+            let curr = 0;
+
+            return {
+                getCurrentValue: function () {
+                    return curr;
+                },
+                increaseValue: function () {
+                    curr++;
+                    return curr;
+                },
+                decreaseValue: function () {
+                    if(curr >0) curr--;
+                    return curr;
+                }
+            }
+        })()
+//        객체이름으로 접근해야 한다.
+//        객체는 블록안에 정의 
+//        객체의 속성은 : 으로 정의 
+
+        
+        console.log(COUNTER.curr); // undefined 
+        console.log(COUNTER.getCurrentValue()); // Closure ?
+        console.log(COUNTER.increaseValue());
+        console.log(COUNTER.decreaseValue());
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

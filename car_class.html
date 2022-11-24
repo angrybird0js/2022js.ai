@@ -1,0 +1,59 @@
+<html>
+<script>
+
+class Car {
+
+    //prototype
+
+    constructor(model, fuel, speed){
+        this.model = model;
+        this.fuel = fuel;
+        this.speed = speed;
+    }
+    
+    getModel() {
+        return this.model;
+    };
+
+    getFuel() {
+        return this.fuel;
+    };
+
+    getSpeed() {
+        return this.speed;
+    };
+
+    speedUp() {
+        return this.speed++;
+    }
+
+    speedDown() {
+        return this.speed--;
+    }
+
+
+};
+
+
+
+const e5 = new Car("e5", "electric", 150 );
+
+console.log(e5.getFuel()); // 숫자출력 문제
+console.log(e5.getSpeed()); // 숫자출력 문제 : 대소문자로 확인
+e5.speedDown();
+e5.speedDown();
+console.log(e5.getSpeed()); 
+
+
+</script>
+
+
+
+<body>
+
+
+
+
+
+</body>
+</html>

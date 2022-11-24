@@ -1,0 +1,37 @@
+<html>
+<script>
+
+// 작동하지 않음
+
+
+
+// document.addEventListener('DOMContentLoaded', () => {});
+
+const arr = [ 'eat', 'play', 'sleep', 'study', 'dance',];
+const key = [ 'food','sport','night','class','dance',];
+const obj = {};
+
+arr.forEach((v,i) => { obj[i] = v;})
+console.log(obj);
+
+
+
+arr.forEach((v,i) => { 
+    obj[key[i]] = v;
+});
+console.log(obj);
+
+
+
+
+
+
+</script>
+
+<body>
+
+
+
+
+</body>
+</html>

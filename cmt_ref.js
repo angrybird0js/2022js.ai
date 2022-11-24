@@ -107,3 +107,6 @@
 // hoisting
 // https://first-class.tistory.com/15
 
+// 클로저 해설 
+// https://poiemaweb.com/js-closure
+

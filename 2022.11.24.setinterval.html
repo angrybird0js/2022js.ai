@@ -1,0 +1,80 @@
+<html>
+<script>
+
+// 작동함
+
+var minuite = 0;
+var second = 0;
+var toggle = true;
+
+document.addEventListener('DOMContentLoaded', () => {
+
+const prt = document.querySelector('#printer');
+const stt = document.querySelector('#start');
+const stp = document.querySelector('#stop');
+const clr = document.querySelector('#clear');
+prt.textContent = `${minuite} Minuite  ${second} Second`;
+
+
+function main() { 
+    console.log(toggle); 
+
+    const strt = setInterval( () => {
+console.log(toggle);
+if (toggle){
+
+    second += 1;
+    console.log(second);
+
+    if( second == 60 ) { // 비교 연산자가 아닌 할당연산자가 들어가면 항상 분단위로 계산됨
+        minuite += 1;
+        second = 0;
+    }
+
+} else {
+    clearInterval(strt);
+}
+
+prt.textContent = `${minuite} Minuite  ${second} Second`;
+
+}, 1000 );
+};
+
+
+stt.addEventListener( 'click', () => {
+ toggle = true;
+ main(toggle);
+});
+
+stp.addEventListener( 'click', () => {
+
+    toggle = false;
+    main(toggle);
+});
+
+
+clr.addEventListener( 'click', () => {
+
+
+    minute = 0;
+    second = 0;
+    toggle = false; // 순서 잘못되면 초기화 안됨
+    main(toggle);
+
+});
+
+});
+
+
+</script>
+
+<body>
+
+<div><p id="printer"></p></div>
+<button id="start">시작</button>
+<button id="stop">정지</button>
+<button id="clear">초기화</button>
+
+
+</body>
+</html>

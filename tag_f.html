@@ -1,0 +1,102 @@
+<html>
+<script>
+
+// 속성을 효과적으로 넣는방븝
+// 충첩된 태그 입력
+//바인딩 필요할것으로 예상
+
+function gettag(tg_name, ...val) {
+
+}
+
+function instag(tname,atr,val,txt) { //간단한 형태이나 실용성이 없는편
+
+    let tag = document.createElement('${tg_name}');
+
+    // 속성과 텍스트는 외부함수로
+    if(atr) {
+        tag.setAttribute('${atr}'r, val )
+    }
+
+    if(txt) {
+        tag.textContent = `${text}`;
+    }
+
+    document.body.appendChild(tag);
+    //연속사용 가능 .appendchild().appendchild()
+    //.append(div1,div2, ...)
+
+    // return tag; // 재사용할경우
+};
+
+
+// 문자열 등을 받아 배열이나 객체에 저장 후 생성함수에 넘겨서 반영
+
+// attributes {}
+// depth 구현?
+// class method
+
+// 입력 tag 별로 다른 메소드 
+// 중첩 태그 
+
+
+// 속성과 값, 스타일에 대한 키와 값을 받아서 확인하고 그에맞는 tag 내용을 만든다.
+
+
+class gen_tag {
+
+    construtor (name) {
+        this.tagname = name;
+        this.attr = attr;
+        
+        //attribute key value
+        //this.atr_val[] = attr_val[];
+
+        //style key value
+        //this.style[]
+        
+        this.txt = context;
+        this.ctag[] = ctag[];
+    }
+
+    // dvi tag
+    function g_tag (tname, attr, atrval, txt) {}
+
+    //스타일 처리 가능하게
+    function add_attr(tname, atr, val) {
+
+        return tname.setAttribute(atr)
+    }
+
+
+    function add_attr(tname, atr, val) {
+
+        // style.color
+        tname.style.(atr) = val;
+
+        return 
+    }
+
+
+    // 값처리 가능하게 기능 추가
+    function add_txt(tname, txt) {
+        return tname.textContent = txt;
+    }
+
+}
+
+class child_tag {
+
+
+}
+
+
+
+
+</script>
+
+<body>
+
+
+</body>
+</html>

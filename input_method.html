@@ -1,0 +1,264 @@
+<html>
+    <title> 한글 입력기 </title>
+<script>
+// '한'.charCodeAt(0).toString(16);
+// String.fromCharCode(parseInt(unicode,16))
+// String.fromCharCode(parseInt('\d55c',16));
+
+
+// window.addEventListener("keydown", (event) => {
+//   const p = document.createElement("p");
+//   p.textContent = `KeyboardEvent: key='${event.key}' | code='${event.code}'`;
+//   document.getElementById("output").appendChild(p);
+//   window.scrollTo(0, document.body.scrollHeight);
+// }, true);
+
+
+var kcode = "";
+var shift_on = false;
+
+
+// 배열로 처리 후 객체 생성
+// var k_code = [
+//     'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0','Minus','Equal',
+//      'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO','KeyP', 'BracketLeft', 'BracketRight', 'Backslash',
+//       'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote',
+//        'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash'
+// ];
+
+var k_code = [ 
+    { keycode: 'Digit1', k_layval : 27, s_layval : 2, k_sq : 3, s_sq : 3 },
+    { keycode: 'Digit2', k_layval : 20, s_layval : 9, k_sq : 3, s_sq : 3 },
+    { keycode: 'Digit3', k_layval : 17, s_layval : 22, k_sq : 3, s_sq : 3 },
+    { keycode: 'Digit4', k_layval : 12, s_layval : 14, k_sq : 2, s_sq : 2 },
+    { keycode: 'Digit5', k_layval : 17, s_layval : 13, k_sq : 2, s_sq : 2 },
+    { keycode: 'Digit6', k_layval : 2, s_layval : '\=', k_sq : 2, s_sq : 4 },
+    { keycode: 'Digit7', k_layval : 7, s_layval : '“', k_sq : 2, s_sq : 4 },
+    { keycode: 'Digit8', k_layval : 19, s_layval : '”', k_sq : 2, s_sq : 4 },
+    { keycode: 'Digit9', k_layval : 13, s_layval : '\'', k_sq : 2, s_sq : 4 },
+    { keycode: 'Digit0', k_layval : 15, s_layval : '\~', k_sq : 1, s_sq : 4 },
+    { keycode: 'Minus', k_layval : '\)', s_layval : '\;', k_sq : 4, s_sq : 4 },
+    { keycode: 'Equal', k_layval : '\>', s_layval : '\+', k_sq : 4, s_sq : 4 },
+
+    { keycode: 'KeyQ', k_layval : 19, s_layval : 26, k_sq : 3, s_sq : 3 },
+    { keycode: 'KeyW', k_layval : 8, s_layval : 25, k_sq : 3, s_sq : 3 },
+    { keycode: 'KeyE', k_layval : 6, s_layval : 5, k_sq : 2, s_sq : 3 },
+    { keycode: 'KeyR', k_layval : 1, s_layval : 15, k_sq : 2, s_sq : 3 },
+    { keycode: 'KeyT', k_layval : 4, s_layval : 12, k_sq : 2, s_sq : 3 },
+    { keycode: 'KeyY', k_layval : 5, s_layval : 5, k_sq : 1, s_sq : 4 },
+    { keycode: 'KeyU', k_layval : 3, s_layval : 6, k_sq : 1, s_sq : 4 },
+    { keycode: 'KeyI', k_layval : 6, s_layval : 7, k_sq : 1, s_sq : 4 },
+    { keycode: 'KeyO', k_layval : 14, s_layval : 8, k_sq : 1, s_sq : 4 },
+    { keycode: 'KeyP', k_layval : 17, s_layval : 9, k_sq : 1, s_sq : 4 },
+    { keycode: 'BracketLeft', k_layval : '\(', s_layval : '\%', k_sq : 4, s_sq : 4 },
+    { keycode: 'BracketRight', k_layval : '\<', s_layval : '\/', k_sq : 4, s_sq : 4 },
+    { keycode: 'Backslash', k_layval : '\\', s_layval : '\|', k_sq : 4, s_sq : 4 },
+
+    { keycode: 'KeyA', k_layval : 21, s_layval : 7, k_sq : 3, s_sq : 3 },
+    { keycode: 'KeyS', k_layval : 4, s_layval : 6, k_sq : 3, s_sq : 3 },
+    { keycode: 'KeyD', k_layval : 20, s_layval : 11, k_sq : 2, s_sq : 3 },
+    { keycode: 'KeyF', k_layval : 0, s_layval : 10, k_sq : 2, s_sq : 3 },
+    { keycode: 'KeyG', k_layval : 18, s_layval : 3, k_sq : 2, s_sq : 2 },
+    { keycode: 'KeyH', k_layval : 2, s_layval : 0, k_sq : 1, s_sq : 4 },
+    { keycode: 'KeyJ', k_layval : 11, s_layval : 1, k_sq : 1, s_sq : 4 },
+    { keycode: 'KeyK', k_layval : 0, s_layval : 2, k_sq : 1, s_sq : 4 },
+    { keycode: 'KeyL', k_layval : 12, s_layval : 3, k_sq : 1, s_sq : 4 },
+    { keycode: 'Semicolon', k_layval : 7, s_layval : 4, k_sq : 1, s_sq : 4 },
+    { keycode: 'Quote', k_layval : 16, s_layval : '·', k_sq : 1, s_sq : 4 },
+
+    { keycode: 'KeyZ', k_layval : 16, s_layval : 23, k_sq : 3, s_sq : 3 },
+    { keycode: 'KeyX', k_layval : 1, s_layval : 18, k_sq : 3, s_sq : 3 },
+    { keycode: 'KeyC', k_layval : 5, s_layval : 24, k_sq : 2, s_sq : 3 },
+    { keycode: 'KeyV', k_layval : 8, s_layval : 3, k_sq : 2, s_sq : 3 },
+    { keycode: 'KeyB', k_layval : 13, s_layval : '\?', k_sq : 2, s_sq : 4 },
+    { keycode: 'KeyN', k_layval : 9, s_layval : '\-', k_sq : 1, s_sq : 4 },
+    { keycode: 'KeyM', k_layval : 18, s_layval : '\"', k_sq : 1, s_sq : 4 },
+    { keycode: 'Comma', k_layval : '\,', s_layval : '\,', k_sq : 4, s_sq : 4 },
+    { keycode: 'Period', k_layval : '\.', s_layval : '\.', k_sq : 4, s_sq : 4 },
+    { keycode: 'Slash', k_layval : 8, s_layval : '\!', k_sq : 2, s_sq : 4 },
+
+];
+
+// var k_lout = [27, 20, 17, 12, 17, 2, 7, 19, 13, 15,
+// 19, 8, 6, 1, 4, 5, 3, 6, 14, 17,
+// 21, 4, 20, 0, 18, 2, 11, 0, 12, 7, 16,
+// 16, 1, 5, 8, 13, 9, 18 ];
+
+// var s_lout = [2, 9, 22, 14, 13, 
+// 26, 25, 5, 15, 12, 
+// 7, 6, 11, 10, 3, 
+// 23, 18, 24, 3 ];
+
+
+
+// vowel, consonant 처리 
+    // const sq1 = [ 9, 18, 19, 20, 21, 22, 28, 29, 30, 31, 32, 33, 39,40 ];
+    // const sq2 = [ 3, 4, 5, 6, 7, 8, 15, 16, 17, 25, 26, 27, 36, 37, 38 ];
+    // const sq3 = [ 0, 1, 2, 13, 14, 23, 24, 34, 35 ];
+// sq4 는 숫자나 특수문자
+
+// const Digit1 = {
+
+//     keycode : 'Digit1',
+//     k_layval : 27, //
+//     s_layval : 2,
+//     k_sq : 3,
+//     s_sq : 3
+// };
+
+// const Digit2 = {
+
+//     keycode : 'Digit2',
+//     k_layval : 20, //
+//     s_layval : 9,
+//     k_sq : 3,
+//     s_sq : 3
+// };
+
+// const Digit3 = {
+
+// keycode : 'Digit3',
+// k_layval : 20, //
+// s_layval : 9,
+// k_sq : 3,
+// s_sq : 3
+// };
+
+
+// var k_code = [
+//     Digit1, Digit2, Digit3, Digit4, Digit5, Digit6, Digit7, Digit8, Digit9, Digit0, Minus, Equal,
+//      KeyQ, KeyW, KeyE, KeyR, KeyT, KeyY, KeyU, KeyI, KeyO, KeyP, BracketLeft, BracketRight, Backslash,
+//       KeyA, KeyS, KeyD, KeyF, KeyG, KeyH, KeyJ, KeyK, KeyL, Semicolon, Quote,
+//        KeyZ, KeyX, KeyC, KeyV, KeyB, KeyN, KeyM, Comma, Period, Slash
+// ];
+
+
+// var lttr_first =
+// k_code.find( k => k.sq === 1 );
+
+// 배열연산 i++ sq 값 확인하면서 흐름제어, 분기함
+
+
+
+// var obj = [
+//     { name: 'Max', age: 23 },
+//     { name: 'John', age: 20 },
+//     { name: 'Caley', age: 18 }
+// ];
+ 
+// var found = obj.find(e => e.name === 'John');
+// console.log(found);
+ 
+// /*
+//     결과: { name: 'John', age: 20 }
+// */
+
+// findIndex() idx 반환
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => { // 철자 확인 !!
+
+    const kc_prt = document.querySelector('#kc_print'); // id 지정에 # 
+    const ioarea = document.querySelector('#ioa');
+
+
+    document.addEventListener('keydown' , (event) => { 
+
+        // shift 키 down up 처리해야 한다.
+        // alt, ctrl 은 구현할 필요없다.
+        // kcode = event.keyCode; // 오류: 229 만 출력
+        kcode = event.code;
+        if (kcode == 'ShiftLeft' || 'ShiftRight') { shift_on = true;}
+        
+        // 검사부
+        // console.log(kcode);
+        // console.log(shift_on);
+        // console.log(typeof kcode); // string
+        // console.log(event.code);
+        // console.log(typeof event.code); //string
+        
+        kc_prt.textContent += kcode; //"${kcode}" string type에 맞출것
+        
+        // 자모검사 flag
+        // first consonant
+        // 
+
+    });
+
+    // shift 동시키 적용, 일반키 적용여부
+    document.addEventListener('keyup' , (event) => { 
+
+        kcode = event.code;
+
+        if (kcode == 'ShiftLeft' || 'ShiftRight') { shift_on = false;}
+
+        // kc_prt.textContent += kcode; //"${kcode}" string type에 맞출것
+
+        // console.log(k_lout.valueOf('KeyA')); //작동되지 않는다
+        // console.log(k_lout.'KeyA');
+        // console.log(kcode);
+        // console.log(shift_on);
+    });
+
+    // kcode.addEventListener('change' , (event) => { 
+
+    //     
+    //     kc_prt.textContent += kcode; //"${kcode}" string type에 맞출것
+
+    // });
+
+
+}); // end domcontentloaded
+
+
+
+function iput() {
+
+    if (kcode != null) {
+
+        // 값을 배열에 할당
+        
+        // 
+
+    } else {}
+
+};
+
+
+// 키값에 해당하는 객체의 시퀀스를 확인하여 적합한 값을 초중종성에 배정하고 글자를 생성
+
+function oneletter(k) {
+
+    let val;
+    
+    if (shift_on) {
+        val = slout.valueOf(k);
+    } else {
+        val = klout.valueOf(k);
+    }
+
+    console.log(shift_on);
+    console.log(val);
+
+    return val;
+};
+
+
+
+function compose() {
+
+
+
+};
+
+
+</script>
+
+<body>
+    <p id="kc_print">keycode input result : </p>
+    <textarea name="input_area" id="ioa" cols="30" rows="10"></textarea>
+
+</body>
+</html>

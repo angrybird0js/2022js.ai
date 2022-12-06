@@ -264,4 +264,14 @@
 
 
 // 노드 계속 
+// https://developer.mozilla.org/ko/docs/Web/API/Node
 // https://www.30secondsofcode.org/articles/s/js-data-structures-tree
+// https://adrianmejia.com/data-structures-for-beginners-trees-binary-search-tree-tutorial/
+
+
+// Generator function
+// https://cpro95.tistory.com/469
+
+
+// 객체의 키 값 검색
+// https://www.techiedelight.com/ko/find-value-array-objects-javascript/

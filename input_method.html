@@ -5,14 +5,20 @@
 
 
 var kcode = "";
-var shift_on = false;
+var shift_on = 0;
 // 2차원 배열
-var arr_sq = [[], []]; // 이중 모음 자음 입력기
+var arr_sq = [ null, null ]; // 이중 모음 자음 입력기
 // 최대 5개의 자음과 모음 자료을 배치할수 있지만 ex 꽦 ㄱ ㄱ ㅗ ㅐ ㄲ
 // 하나의 소리만 입력하기 위해 사용할것.
 
-var one_ltr = [ 100, 100, 100 ];
-//  Backspace  입력시 이전값으로 복귀해야 한다.
+// var tmp_ltr = [ null, null, null ];
+var one_ltr = [ null, null, null ];
+// 0이 아닌 null 값으로 초기화 
+// Backspace  입력시 이전값으로 복귀해야 한다.
+
+
+var last_cha = "";
+
 
 // unicode 의 10진수 숫자값
 let h_code = 0;
@@ -78,19 +84,38 @@ document.addEventListener('DOMContentLoaded', () => { // 철자 확인 !!
     const kc_prt = document.querySelector('#kc_print'); // id 지정에 # 
     const ioarea = document.querySelector('#ioa');
 
+    function refresh_last(hcode) { // 원래는 커서값을 얻어야 한다.
+        // 
+        var rslt = String.fromCharCode(hcode);
+        ioarea.value.replace( /$/ , rslt); 
+
+        //ioarea.value.length - 1 ;
+        // last_cha = 
+
+        // ioarea.selectionStart.replace( /$/ , rslt ); 
+        //selectionStart 반환값을 이용해야 한다. 
+        // var pos = ioarea.selectionStart;
+
+        //입력 시작과 동시에 span 태그를 만들어 그 안에서 작업하고 해제하는 방법
+
+
+    };
+
     ioarea.addEventListener('keydown' , (event) => { // 키를 눌러 입력 시작
 
         // shift 키 down up 처리해야 한다.
         // alt, ctrl 은 구현할 필요없다.
         // kcode = event.keyCode; // 오류: 229 만 출력
         kcode = event.code;
-        if ( kcode == 'ShiftLeft' || 'ShiftRight') { shift_on = true;}
+        if ( kcode == 'ShiftLeft' || 'ShiftRight') { shift_on = 1;}
 
         // k_code 목록에 있는 글자에만 코드값 배당
         if ( k_code.find( k => k.keycode === kcode ) ) {
-            arr_sq[1] = one_snd(kcode); // 배열값 반환하는 함수의 배열을 받는다.
-            ipt2sq( arr_sq[1] ); // 전역변수(배열)에서 값을 받아서 처리
+            arr_sq[1] = one_snd(); // 배열값 반환하는 함수의 배열을 받는다.
+            console.log("arr_sq : ", arr_sq );
+            ipt2sq(); // 전역변수(배열)에서 값을 받아서 처리
             
+
         }
 
 
@@ -101,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => { // 철자 확인 !!
 
         kcode = event.code;
 
-        if (kcode == 'ShiftLeft' || 'ShiftRight') { shift_on = false;}
+        if (kcode == 'ShiftLeft' || 'ShiftRight') { shift_on = 0;}
 
     });
 
@@ -116,33 +141,46 @@ document.addEventListener('DOMContentLoaded', () => { // 철자 확인 !!
 // 시퀀스 카운터 필요한가 확인
 
 function del_one_ltr() {
-    if ( kcode == 'Backspace' ) {  //현재 전역 kcode 값이 BS일때 마다 하나씩 지우기 splice
-
-         let del_idx= arr_sq[arr_sq.length-1][1]; // 단일 글자값을 지우고 입력값 배열도 삭제해야함 0 1 2
-         one_ltr[del_idx] = 100;
+    if ( arr_sq[1][1] == 2 && kcode == 'Backspace' ) {  
+        //현재 전역 kcode 값이 BS일때 마다 하나씩 지우기 splice
+        // 그러나 이 조건은 일반적이지 않다.
         
-        // 출력함수 위치, 출력함수 내 arr_sq, one_lttr 처리
+        // arr_sq 중성 이전값을 가져온다음 값을 빼고 재출력
+        // h_code 값에서 빼지 않고 one_ltr 값 조정후 재계산
+        // 초성은 바로 지우면 되므로 고려하지 않음
+        // 2벌 구현할때는 고쳐야할 부분
 
-    } // backspace 는 별도의 흐름제어가 필요
+        one_ltr[1] = null;
+        iput();
+
+    } 
+    // backspace 는 별도의 흐름제어가 필요
+
+    // 표시글자를 지운 다음 재입력하는 경우
+    // span?? 
+    // regExp /$/
+
 };
 
-function ipt2sq(k) { // 배열 입력 받음
+function ipt2sq() { // 배열 입력 받음
 
 
-    if (k[2] == 1 || k[2] == 2 || [2] == 3 ) { //전역 시퀀스 배열에 글자만 받음
-        arr_sq[1] = arr_sq[2];
-        arr_sq[2] = k; // 2개의 배열값을 넣고 값을 계속 spooling 할것.
-        
+    if ( arr_sq[1][1] == 1 || arr_sq[1][1] == 2 || arr_sq[1][1] == 3 ) { 
+        // 전역 시퀀스 배열에 글자만 받음
+
         // 한글자 배열 one_ltr로 값을 넣는 함수 위치
         proc_sq1();
         proc_sq2();
         proc_sq3();
         proc_sq4();
 
-        colsole.log(arr_sq); // 2차원배열값 확인할것
-        colsole.log(one_ltr);
+        colsole.log("시퀀스 입력 : ",arr_sq); // 2차원배열값 확인할것
+        colsole.log("코드 : ", one_ltr);
 
-        iput(one_ltr); // 배열 입력 값 반환
+        arr_sq[0] = arr_sq[1].clone();
+        // 2개의 배열값을 넣고 값을 계속 spooling 할것.
+
+        // iput(one_ltr); // 배열 입력 값 반환, 시퀀스에서 처리
     }
 
 
@@ -150,17 +188,17 @@ function ipt2sq(k) { // 배열 입력 받음
 
 
 //시퀀스 작업 함수
-    // 이 함수는 초 중 종성이 입력될때마다 결과코드를 출력해야 한다.
-    // 새 함수에서 one_ltr 이 채워질때마다 새 함수 호출하고
-    // Backspace 입력시 앞글자가 지워지도록 하며
-    // Space Enter, 종성이나 초성 입력시 one_ltr과 arr_sq가 풀리고 소거되도록 할것.
-    // 
-    
-    // for (let i = 0 ;  arr_sq[i][1] ; i++ ) {    } // 계속 반복, 시퀀스제어로 수정해야 한다.
-    // 반복문을 시퀀스 함수 밖에서 처리할것.
+// 이 함수는 초 중 종성이 입력될때마다 결과코드를 출력해야 한다.
+// 새 함수에서 one_ltr 이 채워질때마다 새 함수 호출하고
+// Backspace 입력시 앞글자가 지워지도록 하며
+// Space Enter, 종성이나 초성 입력시 one_ltr과 arr_sq가 풀리고 소거되도록 할것.
+// 
+
+// for (let i = 0 ;  arr_sq[i][1] ; i++ ) {    } // 계속 반복, 시퀀스제어로 수정해야 한다.
+// 반복문을 시퀀스 함수 밖에서 처리할것.
 
 
-function proc_sq1 (ltr) { 
+function proc_sq1() { 
         
     if (arr_sq[1][1] == 1 ) { 
         one_ltr[0] = arr_sq[1][0]; 
@@ -168,15 +206,26 @@ function proc_sq1 (ltr) {
         //
     }
 
-    if (arr_sq[0][2] == 1  && arr_sq[1][2] == 1 ) { 
+
+    iput();
+
+
+    if (arr_sq[0][1] == 1  && arr_sq[1][1] == 1 ) { 
 
         if ( arr_sq[0][1] == arr_sq[1][1] ) {
-            one_ltr[0] = 100; //초성 지우고 쌍자음으로 재입력 받을 준비
-            one_ltr[0] = arr_sq[1][0] + 1 ;
+            one_ltr[0] = null; //초성 지우고 쌍자음으로 재입력 받을 준비
+            one_ltr[0] = arr_sq[1][0] + 1 ; // 1을 더한값으로 재입력
         }
+
+        // 자음만 입력된 앞의 한글자를 지워야한다.
+
+        iput();
     } // 쌍자음 처리
 
-    if (arr_sq[1][1] == 1 && arr_sq[0][1] == 2 ) { // 앞은 중성이고 현재입력은 초성인 경우 
+    
+
+
+    if (arr_sq[1][1] == 2 && arr_sq[0][1] == 1 ) { // 앞은 중성이고 현재입력은 초성인 경우 
 
         //배열로 저장되어야 한다. 마지막 입력
         
@@ -184,10 +233,15 @@ function proc_sq1 (ltr) {
         // 배열을 완전히 비우면 첫키 입력값을 잃는다
 
         // 이전값을 사용해야 할때에 유의 
-        iput(one_ltr);
 
-        one_ltr = [ 100, 100, 100 ]; // 배열 비움
-        ipt2sq( arr_sq[1] );
+
+        one_ltr[1] = arr_sq[1][0]; // 모음까지 입력받고 출력 
+        iput();
+        one_ltr = [ null, null, null ];
+        one_ltr[0] = arr_sq[1][0];
+        iput();
+
+        // 배열은 출력함수에서 비우지 않는다
 
         // 초성은 입력값으로 보전한다.
         // 전역변수로 돌린 one_ltr 은 리턴값이 될수없다.
@@ -205,10 +259,13 @@ function proc_sq1 (ltr) {
 // 키 하나씩 입력할때마다 거치게되며
 // arr_sq 에서 앞의 입력키와 비교하게 된다.
 
-function proc_sq2 (ltr) {
+function proc_sq2 () {
 
     
-    if (arr_sq[1][1] == 2 && arr_sq[0][1] == 1) { one_ltr.push( arr_sq[i][0] ); } // 모음 다음에 종성이 있는가 판단 
+    if (arr_sq[1][1] == 2 && arr_sq[0][1] == 1) { 
+        one_ltr[3] = arr_sq[1][0]; 
+        // 바로 출력하면 이중모음 반영시킬수 없다.
+    } // 모음 다음에 종성이 있는가 판단 
 
     if (arr_sq[1][1] == 2 && arr_sq[0][1] == 2 ) {
         if( arr_sq[0][0] == 8 ) { // ㅗ ㅜ 처리부
@@ -237,13 +294,15 @@ function proc_sq2 (ltr) {
         }
     } // 이중모음 처리
 
+    iput();
+
 //글자 출력 및 이전 시퀀스배열 정리
 
 
 
 }; // 중성 처리 함수
 
-function proc_sq3 (ltr) {
+function proc_sq3 () {
     if (arr_sq[i][1] == 3 && arr_sq[i -1][1] == 2 ) { // 이전값이 모음
             one_ltr[2] = arr_sq[1][0];
             // arr_sq = [[], []]; // 값을 소거할 필요성이 있는지 확인.
@@ -255,35 +314,48 @@ function proc_sq3 (ltr) {
         
 };
 
-function proc_sq4(ltr) { 
+function proc_sq4() { 
     // 특수문자 배치가 다르므로 입력할수 있게 해야한다.
+
+    if ( arr_sq[1][1] == 4 ) {
+
+        iput(); // 출력배열에 값이 남아있으면 마지막 글자배열 입력 후 특수문자 입력
+
+        one_ltr[0] = arr_sq[1][0];
+        iput();
+
+
+    }
+
 };
 
 
 
-function one_snd(kc) {
+function one_snd() {
 
-    let val = k_code.find( k => k.keycode === kc ); // 코드를 찾는다 
-    let snd = 100;
-    let sq = 0;
+    let val = k_code.find( k => k.keycode === kcode ); // 코드를 찾는다 
+    let snd = null;
+    let sq = 0; // 시퀀스1에서 0은 ㄱ 값이나 0값이므로 snd null 으로 일단 초기화
     let cha = [];
 
-    if (shift_on) {
+    if (shift_on === 1) {
         snd = val.s_layval;
         sq = val.s_sq;
-    } else {
+    } 
+    
+    if (shift_on === 0) {
         snd = val.k_layval;
         sq = val.k_sq;
     }
 
-    console.log(shift_on);
-    console.log(snd);
-    console.log(sq);
+    console.log("SHIFT_ON : ", shift_on);
+    // console.log(snd);
+    // console.log(sq);
 
     cha.push( snd , sq ); // 개별 키값과 시퀀스값을 구성
 
 
-    console.log(cha);
+    console.log("SND_VAL and Sequence : ", cha);
 
     return cha;
 };
@@ -293,30 +365,38 @@ function one_snd(kc) {
 // sq 는 넘겨받은 배열 2번째 값
 
 // 매개변수 배열
-function iput(set_ltr) { // 전역변수를 매개변수로 받아 실행
+function iput() { // 전역변수를 매개변수로 받아 실행
 
     // 초성 중성에 0 값이 있다
-    // 100 값 등으로 대체해야 한다.
+    // 100 값 등으로 대체해야 한다 : 고정크기 배열 요소값을 null 값으로 처리 
+    //
+    h_code = 0;
+    console.log("one_ltr : ", one_ltr);
 
 
-    if ( set_ltr[0] !== 100 ) {
-        hcode += ( set_str[0] * 588)
+    if ( one_ltr[0] !== null ) {
+        h_code += ( one_ltr[0] * 588)
     } 
 
-    if ( set_ltr[1] !== 100 ) {
-        hcode += ( set_str[1] * 28)
+    if ( one_ltr[1] !== null ) {
+        h_code += ( one_ltr[1] * 28)
     } 
 
 
-    if ( set_ltr[2] !== 100 ) {
-        hcode += ( set_str[2] * 1)
+    if ( one_ltr[2] !== null ) {
+        h_code += ( one_ltr[2] * 1)
     }
     // 값이 배당된 글자들만 계산에 들어가야 한다.
 
 
     h_code += 44032;
+    // 매 글자마다 계산하여 출력하여 입력상황을 확인할수 있게함
+
+    // one_ltr = [ null, null, null ]; 할수없다. 추가입력
+
     // 코드 변환 후 입력을 마치면 0으로 다른 코드값과 마찬가지로 소거되어져야 한다.
     
+    refresh_last(h_code);
 
 
 
@@ -338,7 +418,8 @@ function iput(set_ltr) { // 전역변수를 매개변수로 받아 실행
 
 <body>
     <p id="kc_print">keycode input result : </p>
-    <textarea name="input_area" id="ioa" cols="30" rows="10"></textarea>
+    <!-- <textarea name="input_area" id="ioa" cols="30" rows="10"></textarea> -->
+    <div contentEditable="true" id="ioa" style = " background-color: 'Beige' "" ></div>
 
 </body>
 </html>

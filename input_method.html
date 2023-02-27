@@ -2,7 +2,9 @@
     <title> 한글 입력기 </title>
 <script>
 
-
+// push splice 함수로 값을 배정하고
+// shift backspace 처리방법 변경할것.
+// 커서 구역은 DOM 처리하여 SPAN 사용
 
 var kcode = "";
 var shift_on = 0;
@@ -12,7 +14,7 @@ var arr_sq = [ null, null ]; // 이중 모음 자음 입력기
 // 하나의 소리만 입력하기 위해 사용할것.
 
 // var tmp_ltr = [ null, null, null ];
-var one_ltr = [ null, null, null ];
+var one_ltr = [ null, null, null ]; // 입력방식 변경 고려 push, splice 
 // 0이 아닌 null 값으로 초기화 
 // Backspace  입력시 이전값으로 복귀해야 한다.
 
@@ -201,7 +203,7 @@ function ipt2sq() { // 배열 입력 받음
 function proc_sq1() { 
         
     if (arr_sq[1][1] == 1 ) { 
-        one_ltr[0] = arr_sq[1][0]; 
+        one_ltr[0] = arr_sq[1][0].clone(); 
         //글자 하나마다 계산하여 출력해줘야 한다.
         //
     }
